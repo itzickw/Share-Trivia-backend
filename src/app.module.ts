@@ -22,7 +22,8 @@ import { AuthModule } from './auth/auth.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('DATABASE_URL'), // Use DATABASE_URL for the host
+        url: configService.get<string>('DATABASE_URL'), // Use the DATABASE_URL from .env
+        // host: configService.get<string>('DATABASE_HOST'),
         // port: configService.get<number>('DATABASE_PORT'),
         // username: configService.get<string>('DATABASE_USERNAME'),
         // password: configService.get<string>('DATABASE_PASSWORD'),
@@ -30,9 +31,9 @@ import { AuthModule } from './auth/auth.module';
         entities: [__dirname + '/**/*.entity{.ts,.js}'], // Adjust the path to your entities
         synchronize: true, // Set to true only in development; false in production
         logging: true, // Enable logging for debugging purposes
-        // extra: {
-        //   family: 4, // Use IPv4
-        // },
+        extra: {
+          family: 4, // Use IPv4
+        },
       }),
       inject: [ConfigService], // Inject ConfigService to access environment variables
     }),

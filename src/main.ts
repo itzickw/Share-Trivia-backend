@@ -9,11 +9,6 @@ async function bootstrap() {
     .setTitle('Share Trivia API')
     .setDescription('API documentation for Share Trivia application')
     .setVersion('1.0')
-    // .addTag('topics')
-    // .addTag('questions')
-    // .addTag('answers')
-    // .addTag('levels')
-    // .addTag('user-progress')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
