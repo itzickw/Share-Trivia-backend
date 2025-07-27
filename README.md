@@ -58,10 +58,9 @@ To get this project running on your local machine, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [YOUR_REPOSITORY_URL]
+    git clone https://github.com/itzickw/Share-Trivia-backend.git
     cd share-trivia-backend
     ```
-    *(Replace `[YOUR_REPOSITORY_URL]` with your actual repository URL)*
 2.  **Install dependencies:**
     ```bash
     npm install
