@@ -1,9 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const config = new DocumentBuilder()
+    .setTitle('Share Trivia API')
+    .setDescription('API documentation for Share Trivia application')
+    .setVersion('1.0')
+    // .addTag('topics')
+    // .addTag('questions')
+    // .addTag('answers')
+    // .addTag('levels')
+    // .addTag('user-progress')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // Automatically strip properties that do not have any decorators
