@@ -22,11 +22,11 @@ import { AuthModule } from './auth/auth.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('DATABASE_HOST'),
-        port: configService.get<number>('DATABASE_PORT'),
-        username: configService.get<string>('DATABASE_USERNAME'),
-        password: configService.get<string>('DATABASE_PASSWORD'),
-        database: configService.get<string>('DATABASE_NAME'),
+        host: configService.get<string>('DATABASE_URL'), // Use DATABASE_URL for the host
+        // port: configService.get<number>('DATABASE_PORT'),
+        // username: configService.get<string>('DATABASE_USERNAME'),
+        // password: configService.get<string>('DATABASE_PASSWORD'),
+        // database: configService.get<string>('DATABASE_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'], // Adjust the path to your entities
         synchronize: true, // Set to true only in development; false in production
         logging: true, // Enable logging for debugging purposes
