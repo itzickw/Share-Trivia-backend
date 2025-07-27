@@ -13,86 +13,84 @@
 <a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
 <a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
 <a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  # ShareTrivia Backend Server
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is the backend server for the **ShareTrivia** application. It leverages the robust [NestJS](https://nestjs.com/) framework to provide a scalable and efficient API layer. This server is designed to manage all core aspects of a trivia application, including question management, user progress tracking, and quiz generation.
 
-## Project setup
+## Features
 
-```bash
-$ npm install
-```
+* **Question Management:** Comprehensive CRUD operations for trivia questions.
+* **Topic Organization:** Categorization of questions by various topics (e.g., Science, History).
+* **Difficulty Levels:** Integration of a level system for questions.
+* **User Progress Tracking:** Records and manages user interactions with questions, including:
+    * Creation and retrieval of user progress records.
+    * Calculation of user's current level within specific topics.
+    * Automated deletion of user progress records linked to deleted questions (via database cascading).
+* **Dynamic Quiz Generation:** API endpoint to fetch quiz questions based on selected topics and difficulty levels.
+* **Database Integration:** Utilizes [TypeORM](https://typeorm.io/) for seamless object-relational mapping with a [PostgreSQL](https://www.postgresql.org/) database.
+* **API Documentation:** Integrated with [Swagger (OpenAPI)](https://swagger.io/) for interactive API documentation and testing. (Access at `http://localhost:3000/api` when running locally.)
+
+## Technologies Used
+
+* **NestJS:** The core framework for server-side development.
+* **TypeScript:** For type-safe and robust code.
+* **TypeORM:** ORM for interacting with the database.
+* **PostgreSQL:** Relational database management system.
+* **Swagger (OpenAPI):** For API documentation and exploration.
+
+## Project Setup
+
+To get this project running on your local machine, follow these steps:
+
+### Prerequisites
+
+* Node.js (LTS version recommended)
+* npm (comes with Node.js)
+* PostgreSQL database instance
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/itzickw/Share-Trivia-backend.git
+    cd share-trivia-backend
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Database Configuration:**
+    * Create a PostgreSQL database.
+    * Create a `.env` file in the project root based on `.env.example`:
+        ```bash
+        cp .env.example .env
+        ```
+    * Update the `.env` file with your database connection details:
+        ```env
+        # .env
+        DATABASE_HOST=localhost
+        DATABASE_PORT=5432
+        DATABASE_USERNAME=your_username
+        DATABASE_PASSWORD=your_password
+        DATABASE_NAME=your_database_name
+        # Add any other environment variables here, e.g., JWT_SECRET for authentication if implemented.
+        ```
+    * Ensure your PostgreSQL database server is running and accessible.
 
 ## Compile and run the project
 
 ```bash
-# development
+# development mode (with hot-reloading)
 $ npm run start
 
-# watch mode
+# watch mode (same as development, useful for continuous development)
 $ npm run start:dev
 
-# production mode
+# production mode (builds and then runs the optimized code)
 $ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
