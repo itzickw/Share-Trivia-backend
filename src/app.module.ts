@@ -31,9 +31,6 @@ import { AuthModule } from './auth/auth.module';
         entities: [__dirname + '/**/*.entity{.ts,.js}'], // Adjust the path to your entities
         synchronize: true, // Set to true only in development; false in production
         logging: true, // Enable logging for debugging purposes
-        // extra: {
-        //   family: 4, // Use IPv4
-        // },
       }),
       inject: [ConfigService], // Inject ConfigService to access environment variables
     }),

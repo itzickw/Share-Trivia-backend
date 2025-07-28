@@ -15,12 +15,14 @@ import { CreateLevelDto } from './dto/create-level.dto';
 import { UpdateLevelDto } from './dto/update-level.dto';
 import { Level } from './entities/level.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('levels')
 export class LevelsController {
   constructor(private readonly levelsService: LevelsService) {}
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth('JWT-auth') 
   @Post()
   async create(@Body() createLevelDto: CreateLevelDto): Promise<Level> {
     return this.levelsService.create(createLevelDto);
@@ -49,6 +51,7 @@ export class LevelsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth('JWT-auth')
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -58,6 +61,7 @@ export class LevelsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth('JWT-auth')
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT) // Respond with 204 No Content on successful deletion
   async remove(@Param('id') id: string): Promise<void> {

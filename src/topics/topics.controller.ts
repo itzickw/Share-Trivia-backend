@@ -15,12 +15,14 @@ import { CreateTopicDto } from './dto/create-topic.dto';
 import { Topic } from './entities/topic.entity';
 import { UpdateTopicDto } from './dto/update-topic.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('topics')
 export class TopicsController {
-  constructor(private readonly topicService: TopicsService) {}
+  constructor(private readonly topicService: TopicsService) { }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth('JWT-auth')
   @Post()
   async create(@Body() createTopicDto: CreateTopicDto): Promise<Topic> {
     return this.topicService.create(createTopicDto);
@@ -42,6 +44,7 @@ export class TopicsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth('JWT-auth')
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -51,6 +54,7 @@ export class TopicsController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth('JWT-auth')
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT) // Respond with 204 No Content on successful deletion
   async remove(@Param('id') id: string): Promise<void> {

@@ -17,6 +17,7 @@ import { UpdateQuestionDto } from './dto/update-question.dto';
 import { QuizService } from './quiz/quiz.service';
 import { AuthGuard } from '@nestjs/passport';
 import { log } from 'console';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('questions')
 export class QuestionsController {
@@ -36,12 +37,14 @@ export class QuestionsController {
     }
 
     @UseGuards(AuthGuard('jwt'))
+    @ApiBearerAuth('JWT-auth')
     @Post()
     async create(@Body() createQuestionDto: CreateQuestionDto): Promise<Question> {
         return this.questionsService.create(createQuestionDto);
     }
 
     @UseGuards(AuthGuard('jwt'))
+    @ApiBearerAuth('JWT-auth')
     @Patch(':id')
     async update(
         @Param('id') id: string,
@@ -51,6 +54,7 @@ export class QuestionsController {
     }
 
     @UseGuards(AuthGuard('jwt'))
+    @ApiBearerAuth('JWT-auth')
     @Delete(':id')
     @HttpCode(HttpStatus.NO_CONTENT) // Respond with 204 No Content on successful deletion
     async remove(@Param('id') id: string): Promise<void> {

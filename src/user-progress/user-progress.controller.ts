@@ -3,6 +3,7 @@ import { UserProgressService } from './user-progress.service';
 import { CreateUserProgressDto } from './dto/create-user-progress.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { log } from 'console';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('user-progress')
 export class UserProgressController {
@@ -33,11 +34,14 @@ export class UserProgressController {
     }
 
     @UseGuards(AuthGuard('jwt'))
+    @ApiBearerAuth('JWT-auth')
     @Post()
     createUserProgress(@Body() createUserProgressDto: CreateUserProgressDto) {
         return this.userProgressService.create(createUserProgressDto);
     }
 
+    @UseGuards(AuthGuard('jwt'))
+    @ApiBearerAuth('JWT-auth')
     @Delete(':id')
     removeUserProgress(@Param('id') id: string) {
         return this.userProgressService.remove(id);
