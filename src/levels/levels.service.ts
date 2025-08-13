@@ -19,7 +19,9 @@ export class LevelsService {
   }
 
   async findAll(): Promise<Level[]> {
-    return this.levelRepository.find();
+    return (await this.levelRepository.find()).sort(
+      (a, b) => a.level_number - b.level_number,
+    ); // Sort levels by level_number
   }
 
   async findOne(id: string): Promise<Level> {

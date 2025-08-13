@@ -42,13 +42,10 @@ export class UserProgressService {
         const userProgress = await this.userProgressRepository.find({
             where: { user_id: userId },
         });
-        if (userProgress.length === 0) {
-            throw new NotFoundException(`No progress found for user with id ${userId}`);
-        }
         return userProgress;
     }
 
-    async findByQuestionlId(questionId: string): Promise<UserProgress[]> {
+    async findByQuestionId(questionId: string): Promise<UserProgress[]> {
         const userProgress = await this.userProgressRepository.find({
             where: { question: questionId },
         });
@@ -59,22 +56,27 @@ export class UserProgressService {
     }
 
     async findTopicsUserProgress(userId: string, topicId: string): Promise<UserProgress[]> {
-        const userProgress = await this.userProgressRepository.find({
-            where: { user_id: userId },
-        });
+        const userProgress = await this.findByUserId(userId);
         const topicQuestions = await this.questionsService.findByTopicId(topicId);
-        if (userProgress.length === 0) {
-            throw new NotFoundException(`No progress found for user with id ${userId}`);
-        }
-        if (topicQuestions.length === 0) {
-            throw new NotFoundException(`No questions found for topic with id ${topicId}`);
-        }
+        
         return userProgress.filter(progress =>
             topicQuestions.some(question => question.id === progress.question)
         );
     }
 
-    async findTopicUserLeve(userId: string, topicId: string): Promise<number> {
+    async findTopicsLevelsUserProgress(
+        userId: string,
+        topicId: string,
+        levelNumber: number
+    ): Promise<UserProgress[]> {
+        const userProgress = await this.findTopicsUserProgress(userId, topicId);
+        const topicQuestions = await this.questionsService.findByTopicId(topicId);        
+        return userProgress.filter(progress =>
+            topicQuestions.some(question => question.id === progress.question && question.level.level_number === levelNumber)
+        );  
+    }
+
+    async getUserLevelInTopic(userId: string, topicId: string): Promise<number> {
         const topicUserProgress = await this.findTopicsUserProgress(userId, topicId);
         const topicQuestions = await this.questionsService.findByTopicId(topicId);
         const levels = await this.levelsService.findAll();
@@ -117,7 +119,7 @@ export class UserProgressService {
     }
 
     async removeByQuestionId(questionId: string): Promise<void> {
-        const userProgress = await this.findByQuestionlId(questionId);
+        const userProgress = await this.findByQuestionId(questionId);
         if (userProgress.length === 0) {
             throw new NotFoundException(`No progress found for level with id ${questionId}`);
         }

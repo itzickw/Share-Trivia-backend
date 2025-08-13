@@ -23,14 +23,23 @@ export class UserProgressController {
         return this.userProgressService.findByUserId(userId);
     }
 
-    @Get('question/:questionlId')
-    getUserProgressByQuestionlId(@Param('levelId') questionId: string) {
-        return this.userProgressService.findByQuestionlId(questionId);
+    @Get('question/:questionId')
+    getUserProgressByQuestionId(@Param('levelId') questionId: string) {
+        return this.userProgressService.findByQuestionId(questionId);
     }
 
-    @Get('topic-level/:userId/:topicId')
-    getUserLeveTopic(@Param('userId') userId: string, @Param('topicId') topicId: string) {
-        return this.userProgressService.findTopicUserLeve(userId, topicId);
+    @Get('topic/level/:userId/:topicId/:levelNumber')
+    getUserTopicLevelProgress(
+        @Param('userId') userId: string,
+        @Param('topicId') topicId: string,
+        @Param('levelNumber') levelNumber: number,
+    ) {
+        return this.userProgressService.findTopicsLevelsUserProgress(userId, topicId, levelNumber);
+    }
+
+    @Get('level-in-topic/:userId/:topicId')
+    getUserLeveInTopic(@Param('userId') userId: string, @Param('topicId') topicId: string) {
+        return this.userProgressService.getUserLevelInTopic(userId, topicId);
     }
 
     @UseGuards(AuthGuard('jwt'))

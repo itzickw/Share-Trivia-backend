@@ -14,7 +14,6 @@ import { QuestionsService } from './questions.service';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
-import { QuizService } from './quiz/quiz.service';
 import { AuthGuard } from '@nestjs/passport';
 import { log } from 'console';
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -23,7 +22,6 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 export class QuestionsController {
     constructor(
         private readonly questionsService: QuestionsService,
-        private readonly quizService: QuizService
     ) { }
 
     @Get()
@@ -67,7 +65,7 @@ export class QuestionsController {
         @Param('topicName') topicName: string,
         @Param('levelNumber') levelNumber: number
     ): Promise<Question[]> {
-        return this.quizService.getQuizQuestions(topicName, +levelNumber);
+        return this.questionsService.findQuizQuestions(topicName, +levelNumber);
     }
 
     @Get('level-id/:levelId')

@@ -11,6 +11,7 @@ import { ValidationService } from './common/validation/validation.service';
 import { ValidationModule } from './common/validation/validation.module';
 import { UserProgressModule } from './user-progress/user-progress.module';
 import { AuthModule } from './auth/auth.module';
+import { QuizModule } from './quiz/quiz.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { AuthModule } from './auth/auth.module';
     UserProgressModule,
     ValidationModule,
     AuthModule,
+    QuizModule,
   ],
   controllers: [AppController],
   providers: [AppService, ValidationService],

@@ -125,6 +125,18 @@ export class QuestionsService {
     return questions;
   }
 
+  async findQuizQuestions(
+    topicName: string,
+    levelNumber: number,
+  ): Promise<Question[]> {
+    const topic = await this.validationService.validateTopicName(topicName);
+    const level = await this.validationService.validateLevelNumber(levelNumber);
+
+    const questions = await this.findByTopicId(topic.id)
+    .then(questions => questions.filter(q => q.level.level_number === levelNumber));
+    return questions;
+  }
+
   async update(
     id: string,
     updateQuestionDto: UpdateQuestionDto,

@@ -9,7 +9,6 @@ import { LevelsModule } from 'src/levels/levels.module';
 import { ValidationModule } from 'src/common/validation/validation.module';
 import { QuestionValidatorService } from './question-validator.service';
 import { Answer } from 'src/answers/entities/answer.entity';
-import { QuizService } from './quiz/quiz.service';
 
 @Module({
   imports: [
@@ -19,7 +18,7 @@ import { QuizService } from './quiz/quiz.service';
     LevelsModule,
     ValidationModule,
   ],
-  providers: [QuestionsService, QuestionValidatorService, QuizService],
+  providers: [QuestionsService, QuestionValidatorService],
   controllers: [QuestionsController],
   exports: [QuestionsService, TypeOrmModule.forFeature([Question])],
 })
