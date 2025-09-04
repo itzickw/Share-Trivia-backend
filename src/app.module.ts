@@ -23,15 +23,16 @@ import { QuizModule } from './quiz/quiz.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        url: configService.get<string>('DATABASE_URL'), // Use the DATABASE_URL from .env
-        // host: configService.get<string>('DATABASE_HOST'),
-        // port: configService.get<number>('DATABASE_PORT'),
-        // username: configService.get<string>('DATABASE_USERNAME'),
-        // password: configService.get<string>('DATABASE_PASSWORD'),
-        // database: configService.get<string>('DATABASE_NAME'),
+        // url: configService.get<string>('DATABASE_URL'), // Use the DATABASE_URL from .env
+        host: configService.get<string>('DATABASE_HOST'),
+        port: configService.get<number>('DATABASE_PORT'),
+        username: configService.get<string>('DATABASE_USERNAME'),
+        password: configService.get<string>('DATABASE_PASSWORD'),
+        database: configService.get<string>('DATABASE_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'], // Adjust the path to your entities
         synchronize: true, // Set to true only in development; false in production
         logging: true, // Enable logging for debugging purposes
+        ssl: { rejectUnauthorized: false }, // Enable SSL for secure connections
       }),
       inject: [ConfigService], // Inject ConfigService to access environment variables
     }),
